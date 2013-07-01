@@ -683,12 +683,12 @@ void Manager::addToFilePathMap(const boost::filesystem::path& directory, bool ad
     for (; nameIter != nameEnd; ++nameIter) {
         if (bfs::is_directory(nameIter->status())) {
             if (addSubdirectories) {
-                UnicodeString nextPre = prefix + StringConverter::fromUtf8(nameIter->path().filename()) + "/";
+                UnicodeString nextPre = prefix + StringConverter::fromUtf8(nameIter->path().filename().string()) + "/";
                 addToFilePathMap(nameIter->path(), true, nextPre);
             }
         }
 
-        UnicodeString str = prefix + StringConverter::fromUtf8(nameIter->path().filename());
+        UnicodeString str = prefix + StringConverter::fromUtf8(nameIter->path().filename().string());
         str.toLower();
 
         filePathMap_[StringConverter::toUtf8String(str)] = nameIter->path();
@@ -979,7 +979,7 @@ void Manager::addOverrideDirectory(std::map<unsigned int, boost::filesystem::pat
     bfs::directory_iterator nameEnd;
 
     for (; nameIter != nameEnd; ++nameIter) {
-        if (bfs::is_regular_file(nameIter->status()) && nameIter->leaf() != ".svn") {
+        if (bfs::is_regular_file(nameIter->status()) && nameIter->path().filename() != ".svn") {
             int parsedNum = StringConverter::toInt(nameIter->path().stem().c_str());
             if (parsedNum > 0) {
                 map[parsedNum] = nameIter->path();

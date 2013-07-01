@@ -401,7 +401,7 @@ void Manager::loadFontDirectory(const boost::filesystem::path& path) {
             }
 
             LOG_DEBUG << "Registering system font " << iter->path().stem() << " from path " << iter->path().string() << std::endl;
-            CL_Font_System::register_font(iter->path().string(), iter->path().stem());
+            CL_Font_System::register_font(iter->path().string(), iter->path().stem().string());
         }
     }
 }

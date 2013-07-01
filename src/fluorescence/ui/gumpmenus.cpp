@@ -76,8 +76,8 @@ void GumpMenus::openShardList() {
     bfs::directory_iterator nameIter(path);
     bfs::directory_iterator nameEnd;
     for (; nameIter != nameEnd; ++nameIter) {
-        if (bfs::is_directory(nameIter->status()) && nameIter->leaf() != ".svn") {
-            nameList.append(StringConverter::fromUtf8(nameIter->path().filename()));
+        if (bfs::is_directory(nameIter->status()) && nameIter->path().filename() != ".svn") {
+            nameList.append(StringConverter::fromUtf8(nameIter->path().filename().string()));
         }
     }
 

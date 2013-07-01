@@ -36,7 +36,7 @@ void PatcherUpdater::copyPatcherUpdateFolder() {
         bfs::directory_iterator nameEnd;
 
         for (; nameIter != nameEnd; ++nameIter) {
-            if (bfs::is_regular_file(nameIter->status()) && nameIter->leaf() != ".svn") {
+            if (bfs::is_regular_file(nameIter->status()) && nameIter->path().filename() != ".svn") {
                 if (bfs::exists(nameIter->path().leaf())) {
                     bfs::remove(nameIter->path().leaf());
                 }
@@ -45,7 +45,7 @@ void PatcherUpdater::copyPatcherUpdateFolder() {
                 ++counter;
             }
         }
-    } catch (bfs::basic_filesystem_error<bfs::path>& err) {
+    } catch (bfs::filesystem_error& err) {
         LOG_ERROR << "Unable to update patcher files: " << err.what() << std::endl;
     }
 

@@ -32,7 +32,7 @@ IndexLoader::IndexLoader(const boost::filesystem::path& path) : indexBlocks_(NUL
     FullFileLoader ldr(path);
     ldr.read(boost::bind(&IndexLoader::read, this, _1, _2));
 
-    fileName_ = StringConverter::fromUtf8(path.leaf());
+    fileName_ = StringConverter::fromUtf8(path.filename().string());
 }
 
 IndexLoader::~IndexLoader() {
